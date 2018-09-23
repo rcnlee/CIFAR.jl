@@ -13,4 +13,4 @@ run(`tar -zxvf $CompressFile`)
 rm(CompressFile)
 
 # Rename decompressed directory (for ease)
-mv(CifarOrigDir,CifarFinalDir;remove_destination=true)  
+mv(CifarOrigDir,CifarFinalDir; force=true)  

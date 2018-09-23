@@ -1,3 +1,5 @@
+using Printf
+
 function labelnames()
   # Set File Name
   DataDir = joinpath(dirname(@__FILE__),"..","data","bin")
@@ -77,17 +79,17 @@ function traindata(;batch_number=-1, normalize_images=false, grey=false)
     Samples = 10000    
 
     # Initialize Dataset Structures
-    Dataset = Array(Float64,Features,Samples)
-    Labels = Array(UInt8,Samples,1)
-    LabelNames = Array(AbstractString,10,1)
+    Dataset = Array{Float64}(undef,Features,Samples)
+    Labels = Array{UInt8}(undef,Samples,1)
+    LabelNames = Array{String}(undef,10,1)
 
     # Open Batch File
     h_BatchFile = open(BatchFile)
 
     # Loop Over Samples
-    r = Array(UInt8,Pixels,1)
-    g = Array(UInt8,Pixels,1)
-    b = Array(UInt8,Pixels,1)
+    r = Array{UInt8}(undef,Pixels,1)
+    g = Array{UInt8}(undef,Pixels,1)
+    b = Array{UInt8}(undef,Pixels,1)
     for sampleIdx = 1:Samples
       # Read Label Byte
       Labels[sampleIdx] = read(h_BatchFile,UInt8)+1
@@ -122,7 +124,7 @@ function traindata(;batch_number=-1, normalize_images=false, grey=false)
     end
   else
     Features = grey ? Pixels : 3*Pixels
-    Dataset = Array(Float64,Features,0)
+    Dataset = Array{Float64}(undef,Features,0)
     Labels  = []
     for i= 1:5
       D, L, LabelNames = traindata(batch_number=i,normalize_images=normalize_images,grey=grey)
@@ -147,17 +149,18 @@ function testdata(;normalize_images=false,grey=false)
   Labels = 10
 
   # Initialize Dataset Structures
-  Dataset = Array(UInt8,Features,Samples)
-  Labels = Array(UInt8,Samples,1)
-  LabelNames = Array(AbstractString,10,1)
+  Dataset = Array{UInt8}(undef,Features,Samples)
+  Labels = Array{UInt8}(undef,Samples,1)
+  LabelNames = Array{String}(undef,10,1)
+
 
   # Open Batch File
   h_BatchFile = open(BatchFile)
 
   # Loop Over Samples
-  r = Array(UInt8,Pixels,1)
-  g = Array(UInt8,Pixels,1)
-  b = Array(UInt8,Pixels,1)
+  r = Array{UInt8}(undef,Pixels,1)
+  g = Array{UInt8}(undef,Pixels,1)
+  b = Array{UInt8}(undef,Pixels,1)
   for sampleIdx = 1:Samples
     # Read Label Byte
     Labels[sampleIdx] = read(h_BatchFile,UInt8)+1

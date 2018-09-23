@@ -14,5 +14,5 @@ function download()
   rm(CompressFile)
 
   # Rename decompressed directory (for ease)
-  mv(CifarOrigDir,CifarFinalDir;remove_destination=true)  
+  mv(CifarOrigDir,CifarFinalDir; force=true)  
 end

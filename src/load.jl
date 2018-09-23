@@ -18,9 +18,6 @@ function labelnames()
   close(h_LabelNameFile)
 
   # Strip newlines
-  for i=1:length(LabelNames)
-    LabelNames[i] = LabelNames[i][1:end-1]
-  end
   LabelNames=LabelNames[1:end-1]
   
   return LabelNames
